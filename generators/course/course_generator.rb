@@ -16,7 +16,7 @@ class CourseGenerator < RubiGen::Base
       # Ensure appropriate folder(s) exists
       # the structure of a workflow bundle is
       # 
-      # Bundle Name.pcf
+      # Bundle Name.pwf
       #   Contents
       #     Info.plist
       #     Resources
@@ -31,29 +31,29 @@ class CourseGenerator < RubiGen::Base
       #         art.rb
       
       # Base bundle
-      m.directory "#{name}.pcf"
+      m.directory "#{name}.pwf"
       
       # The Bundles Contents folder
-      m.directory "#{name}.pcf/Contents"
+      m.directory "#{name}.pwf/Contents"
       
       # The require subdirectories and files of the Contents Folder
-      m.file "Info.plist", "#{name}.pcf/Contents/Info.plist"
-      m.directory "#{name}.pcf/Contents/Resources"
+      m.file "Info.plist", "#{name}.pwf/Contents/Info.plist"
+      m.directory "#{name}.pwf/Contents/Resources"
       
       # The required structure inside of Resources
       %w(Compositions en.lproj Images Movies Templates Tools).each do |folder|
-        m.directory "#{name}.pcf/Contents/Resources/#{folder}"
+        m.directory "#{name}.pwf/Contents/Resources/#{folder}"
       end
       
       # Copy the art file
-      m.file "art.rb", "#{name}.pcf/Contents/Resources/Tools/art.rb"
+      m.file "art.rb", "#{name}.pwf/Contents/Resources/Tools/art.rb"
       
       # Copy the english trasnlation file and the podcast prodcuer workflow file
       print "name #{name}"
       print "audio tab #{audio_tab}"
       print "video tab #{video_tab}"
-      m.template "Info.strings",  "#{name}.pcf/Contents/Resources/en.lproj/InfoPlist.strings"
-      m.template "template.plist", "#{name}.pcf/Contents/Resources/template.plist"
+      m.template "Info.strings",  "#{name}.pwf/Contents/Resources/en.lproj/InfoPlist.strings"
+      m.template "template.plist", "#{name}.pwf/Contents/Resources/template.plist"
     end
   end
 
