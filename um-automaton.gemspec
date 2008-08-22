@@ -1,4 +1,3 @@
-(in /Users/trek/Development/um-automaton)
 Gem::Specification.new do |s|
   s.name = %q{automaton}
   s.version = "0.0.1"
