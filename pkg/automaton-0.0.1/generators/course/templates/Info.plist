@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Name</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Description</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.PodcastProducer.workflow.Workflow_0</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Workflow 0</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>10</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>74</string>
+	<key>Description</key>
+	<string>Description</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright</string>
+	<key>Name</key>
+	<string>Name</string>
+	<key>Notes</key>
+	<string></string>
+	<key>PcastWorkflowVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
