@@ -1,0 +1,101 @@
+/*
+  Upload to SI539
+  
+*/
+(
+    {
+        name = "$$Xgrid Job Name$$"; 
+
+        artSpecifications = {
+            0 = {
+                artPath = "$$Workflow Resource Path$$/Tools/art.rb"; 
+				
+                artArguments = ("$$Shared Filesystem$$", "$$Server UUID$$"); 
+            }; 
+        };
+		
+        artConditions = {0 = {artEqual = 1; }; }; 
+
+        taskSpecifications = {
+          preflight = {
+            command = "/usr/bin/pcastaction";
+            arguments = (
+              preflight,
+              "--basedir=$$Base Directory$$"
+            );
+          };
+          encode_audio = {
+            dependsOnTasks = (preflight); 
+            command = "/usr/bin/pcastaction";
+            arguments = (
+              encode,
+              "--basedir=$$Base Directory$$",
+              "--input=$$Content File Basename$$$$Content File Extension$$",
+              "--output=$$Content File Basename$$-audio.m4v",
+              "--encoder=mp4_audio_high"
+            );
+          };
+          encode_video = {
+            dependsOnTasks = (preflight);
+            command = "/usr/bin/pcastaction";
+            arguments = (
+              encode,
+              "--basedir=$$Base Directory$$",
+              "--input=$$Content File Basename$$$$Content File Extension$$",
+              "--output=$$Content File Basename$$-video.m4v",
+              "--encoder=ipod"
+            );
+          };
+          publish_audio_to_itunesu = {
+            dependsOnTasks = (encode_audio); 
+            command = "/usr/bin/pcastaction";
+            arguments = (
+              iTunesU,
+              "--basedir=$$Base Directory$$",
+              "--input=$$Content File Basename$$-audio.m4v",
+              "--title=$$Title$$",
+              "--description=$$Description$$",
+              "--site_url=$$iTunes U Site URL$$",
+              "--tab_id=1419234028.01647873680",
+              "--credential=$$iTunes U Posting Credentials$$",
+              "--display_name=NAME",
+              "--email=EMAIL",
+              "--user=SHORTNAME ",
+              "--user_id=0",
+              "--pcast_server=$$Podcast Producer URL$$",
+              "--otp=##iTunes U Shared Secret##"
+            );
+          };
+          publish_video_to_itunesu = {
+            dependsOnTasks = (encode_video); 
+            command = "/usr/bin/pcastaction";
+            arguments = (
+              iTunesU,
+              "--basedir=$$Base Directory$$",
+              "--input=$$Content File Basename$$-video.m4v",
+              "--title=$$Title$$",
+              "--description=$$Description$$",
+              "--site_url=$$iTunes U Site URL$$",
+              "--tab_id=1419234028.01419234030",
+              "--credential=$$iTunes U Posting Credentials$$",
+              "--display_name=NAME",
+              "--email=EMAIL ",
+              "--user=SHORTNAME ",
+              "--user_id=0",
+              "--pcast_server=$$Podcast Producer URL$$",
+              "--otp=##iTunes U Shared Secret##"
+            );
+          };
+          postflight = {
+            dependsOnTasks = (publish_audio_to_itunesu, publish_video_to_itunesu);
+            command = "/usr/bin/pcastaction";
+            arguments = (
+              postflight,
+              "--basedir=$$Base Directory$$"
+            );
+          };
+        };
+	  }
+)
+		
+		
