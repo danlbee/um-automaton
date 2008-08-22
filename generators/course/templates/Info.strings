@@ -1,0 +1,3 @@
+Copyright = "";
+Name = "<%= name -%>";
+Description = "";

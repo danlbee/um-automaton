@@ -9,6 +9,7 @@ class AutomatonGenerator < RubiGen::Base
 
   def initialize(runtime_args, runtime_options = {})
     super
+    puts args.inspect
     usage if args.empty?
     @destination_root = File.expand_path(args.shift)
     @name = base_name
@@ -20,12 +21,6 @@ class AutomatonGenerator < RubiGen::Base
       # Ensure appropriate folder(s) exists
       m.directory ''
       BASEDIRS.each { |path| m.directory path }
-
-      # Create stubs
-      # m.template "template.rb",  "some_file_after_erb.rb"
-      # m.template_copy_each ["template.rb", "template2.rb"]
-      # m.file     "file",         "some_file_copied"
-      # m.file_copy_each ["path/to/file", "path/to/file2"]
 
       m.dependency "install_rubigen_scripts", [destination_root, 'automaton'],
         :shebang => options[:shebang], :collision => :force
@@ -62,10 +57,7 @@ EOS
     # Installation skeleton.  Intermediate directories are automatically
     # created so don't sweat their absence here.
     BASEDIRS = %w(
-      lib
-      log
       script
-      test
       tmp
     )
 end

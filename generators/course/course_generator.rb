@@ -2,32 +2,66 @@ class CourseGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_reader :name
+  attr_reader :name, :audio_tab, :video_tab
 
   def initialize(runtime_args, runtime_options = {})
     super
-    usage if args.empty?
-    @name = args.shift
+    usage unless args.size == 3
+    @name, @audio_tab, @video_tab = args
     extract_options
   end
 
   def manifest
     record do |m|
       # Ensure appropriate folder(s) exists
-      m.directory 'some_folder'
-
-      # Create stubs
-      # m.template "template.rb",  "some_file_after_erb.rb"
-      # m.template_copy_each ["template.rb", "template2.rb"]
-      # m.file     "file",         "some_file_copied"
-      # m.file_copy_each ["path/to/file", "path/to/file2"]
+      # the structure of a workflow bundle is
+      # 
+      # Bundle Name.pcf
+      #   Contents
+      #     Info.plist
+      #     Resources
+      #       Compositions
+      #       en.lproj
+      #         InfoPlist.strings
+      #       Images
+      #       Movies
+      #       template.plist
+      #       Templates
+      #       Tools
+      #         art.rb
+      
+      # Base bundle
+      m.directory "#{name}.pcf"
+      
+      # The Bundles Contents folder
+      m.directory "#{name}.pcf/Contents"
+      
+      # The require subdirectories and files of the Contents Folder
+      m.file "Info.plist", "#{name}.pcf/Contents/Info.plist"
+      m.directory "#{name}.pcf/Contents/Resources"
+      
+      # The required structure inside of Resources
+      %w(Compositions en.lproj Images Movies Templates Tools).each do |folder|
+        m.directory "#{name}.pcf/Contents/Resources/#{folder}"
+      end
+      
+      # Copy the art file
+      m.file "art.rb", "#{name}.pcf/Contents/Resources/Tools/art.rb"
+      
+      # Copy the english trasnlation file and the podcast prodcuer workflow file
+      print "name #{name}"
+      print "audio tab #{audio_tab}"
+      print "video tab #{video_tab}"
+      m.template "Info.strings",  "#{name}.pcf/Contents/Resources/en.lproj/InfoPlist.strings"
+      m.template "template.plist", "#{name}.pcf/Contents/Resources/template.plist"
     end
   end
 
   protected
     def banner
       <<-EOS
-Creates a ...
+Creates a new Profcast Workflow bundle. The workflow template caters directly to the UM School of
+Dentistry's needs for each course to have an audio and video tab.
 
 USAGE: #{$0} #{spec.name} name
 EOS

@@ -1,5 +1,5 @@
 /*
-  Upload to SI539
+  Upload to <%= name %>
   
 */
 (
@@ -56,7 +56,7 @@
               "--title=$$Title$$",
               "--description=$$Description$$",
               "--site_url=$$iTunes U Site URL$$",
-              "--tab_id=1419234028.01647873680",
+              "--tab_id=<%= audio_tab -%>",
               "--credential=$$iTunes U Posting Credentials$$",
               "--display_name=NAME",
               "--email=EMAIL",
@@ -76,7 +76,7 @@
               "--title=$$Title$$",
               "--description=$$Description$$",
               "--site_url=$$iTunes U Site URL$$",
-              "--tab_id=1419234028.01419234030",
+              "--tab_id=<%= video_tab -%>",
               "--credential=$$iTunes U Posting Credentials$$",
               "--display_name=NAME",
               "--email=EMAIL ",
