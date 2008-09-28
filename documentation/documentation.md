@@ -17,10 +17,8 @@ Automaton
 4. Podcast Producer Recording Machine Setup
 
 5. Using the Workflow Tools
-  1. Generating a new course
-  1. Creating a Course in iTunesU
   1. Getting the Workflows on your development Machine
-  1. Generating a new Course Workflow
+  1. Generating a new course Workflow
   1. Adding the Workflow to the Repository
   1. Installing the Changes to the Podcast Producer machine
 
@@ -113,11 +111,11 @@ Set your properties as follows:
 ### Initializing the Workflows
 Podcast Producer ships with a set of default workflows. We will overwrite these with the School of Dentistry's custom workflows.  These workflows are stored in a central code repository called github.  To replace the default workflows with the custom workflows
 
-1. In the Finder, open your Podcast Producer's shared folder (specified in the General tab of Settings section of Podcast Producer service in Server Admin).
+1. In the Finder, open */Library/PodcastProducer*
 2. Delete the *Workflows* folder (you may be promoted for your administrator credentials)
-3. Open the Podcast Producer's shared folder in terminal with
+3. Open the */Library/PodcastProducer* in terminal with
 
-  `cd /path/to/your/shared/folder`
+  `cd /Library/PodcastProducer`
 
 4. Install the custom workflows using git with:
   
@@ -130,14 +128,71 @@ Xgrid Agent Setup
 
 Podcast Producer Recording Machine Setup
 ----------------------------------------
-For a recording machine to capture new recordings and upload them to your Podcast Producer Machine. On a recording machine, open the *Podcast Capture* application in *Applications/Podcast Capture*. 
+For a recording machine to capture new recordings and upload them to your Podcast Producer Machine. On a recording machine, open the *Podcast Capture* application in *Applications/Podcast Capture*.  In the Preferences for Podcast Capture enter the url, pcastadmin user name, and pcastadmin password to connect the recording machine to Podcast Producer.
+
 ![Podcast Producer Login](images/Podcast Producer Login.png)
 
 Using the Workflow Tools
 ---------------------------
-### Generating a new course
-### Creating a Course in iTunes U
+
+Now that you have successfully set up the entire Podcast Producer system, you can be begin to change the installed Workflows to match new courses.  Adding, removing, and updating workflows should be done *only* on a development machine. Changes made directly on the production machines will be overwritten.
+
 ### Getting the Workflows on your development Machine
-### Generating a new Course Workflow
+You will need to download the Workflow project to your development machine to make changes to the project. To download the project, go to [http://github.com/trek/um-podcastproducer-workflows/](http://github.com/trek/um-podcastproducer-workflows/tree/master) and click the "Your Clone URL:" link.  Copy the resulting text (which will similar to `git clone git@github.com:trek/um-podcastproducer-workflows.git `).
+
+in Terminal:
+
+change into a directory where you would like to keep this project
+
+`cd path/to/a/project/folder`
+
+paste the text of the "Your Clone URL" link.
+
+`git clone git@github.com:trek/um-podcastproducer-workflows.git`
+
+chance into this new direcory
+
+`cd um-podcastproducer-workflows`
+
+
+You now have the custom workflows on your development machine.
+
+### Generating a new course Workflow
+Each course you would like to capture recordings for will need it's own workflow. The workflows of different courses are mostly identical and differ only in a few variables.  To encapsulate these similarities we use a rubigen generator to create mostly identical workflows.  You can use this generator in the Workflows project wit the script/generate course command in Terminal.  This command takes three arguments: the name of the course, the iTunes U tab id of the audio tab and the the iTunes U tab id of the video tab. For example:
+
+`script/generate course "782: Clincal Dental Prosthesis" 1234567.8716161 1048282.9191919`
+
+This will create the necessary folder structure with the information entered in the correct files for Podcast Producer. 
+
+The course name cannot contain the characters '/' or '&'.  Using these characters will cause the workflow to fail.
+
+You can obtain the tab ids by dragging the tabs from iTunes U into a plain text editor.  This will copy the full url of the tab. You will use only the two part numeric idea (separated by a '.'). The rest of the should be removed before running `script/generate course`
+
+
 ### Adding the Workflow to the Repository
+Once you've added or edited a workflow, you should add your changes to the local git repository. This can be done in the Terminal with the `git add` with the name of the workflow you added. For example:
+
+`git add "782 Clincal Dental Prosthesis"`
+
+This will add the content to the repository. To commit your additions use `git commit` with a commit message. For example:
+
+`git commit -m "added 782"`
+
+This will commit the content to the local repository. When you are ready to add this content to the remote repository (the location where production machines will pull changes) use `git push` 
+
+`git push`
+
+This will move the local content to the remote repository.
+
 ### Installing the Changes to the Podcast Producer machine
+To apply your changes on the Podcast Producer production servers, `cd` into the */Library/PodcastProducer/Workflows* with 
+
+`cd /Library/PodcastProducer`
+
+You can then update the workflows to the latest version of the project with
+
+`sudo git pull`
+
+You will be promoted for your administrator username and password.
+
+You should not make local changes to the Workflows folder on the production machines. These changes will be overwritten.
