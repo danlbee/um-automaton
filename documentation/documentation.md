@@ -25,9 +25,13 @@ Automaton
 Development Computer Setup
 ---------------------------
 ### Dependencies
-To use the development tools you will need to have the ruby programming language and [git]("http://git.or.cz/") installed on your development machine.
+To use the development tools you will need to have the ruby programming language and [git](http://git.or.cz/) installed on your development machine.
 
 ### Setting up the development tools
+The development of UM's podcast workflows happens through a custom [rubigen](http://rubigen.rubyforge.org/) generator called [Automaton](http://github.com/trek/um-automaton/) that install system-wide. Install this generator on your computer using rubygems:
+
+`sudo gem install trek-automaton -s http://gems.github.com`
+
 
 Podcast Producer Server Setup
 ---------------------------
