@@ -6,10 +6,10 @@ Automaton
   2. Setting up the development Tools
 
 2. Podcast Producer Server Setup
-  1. Dependencies: correct forward and reverse DNS
+  1. Dependencies
   2. Configuring Open Directory
   3. Configuring Xgrid
-  4. Configuring PodcastPro
+  4. Configuring Podcast Producer
   5. Initializing the Workflows
 
 3. Podcast Producer Recording Machine Setup
@@ -32,9 +32,52 @@ The development of UM's podcast workflows happens through a custom [rubigen](htt
 
 `sudo gem install trek-automaton -s http://gems.github.com`
 
+This will install the Automaton gem and all of it's dependencies. You are now ready to create new Podcast Producer workflow bundles based on the UM School of Dentistry Template.
+
+The Automaton gem is *only* required on development machines.
+
+Sometimes the Automaton gem will be updated to include new features. To updated the gem (and ensure that future generated workflows are correctly formatted) use:
+
+`sudo gem update trek-automaton -s http://gems.github.com`
 
 Podcast Producer Server Setup
 ---------------------------
+### Dependencies
+Podcast Producer **absolutely requires** properly configured forward and reverse DNS.  On a Unix computer you can verify this using the `host` command.  To check and address like fellini.dent.umich.edu, enter:
+
+`host fellini.dent.umich.edu`
+
+If forward DNS is configured properly you should see the IP address of this machine:
+
+`fellini.dent.umich.edu has address 141.211.159.166`
+
+Running `host` again with the IP address should return a domain name pointer if *reverse* DNS is correctly configured.
+
+`host 166.159.211.141`
+`166.159.211.141.in-addr.arpa domain name pointer fellini.dent.umich.edu.`
+
+If you do not receive a response like this, reverse DNS is not correctly configured and Podcast Producer will not function properly.
+
+### Configuring Open Directory
+Podcast Producer uses Open Directory to authenticate both users recording new podcasts and other services that make up the Producer Producer system.
+
+For full Directions for configuring Open Directory see the *Configuring the Open Directory Service* section of Apple's [*Podcast Producer Administration*](http://images.apple.com/server/macosx/docs/Podcast_Producer_Admin_v10.5.pdf) guide.
+
+### Configuring Xgrid
+For full Directions for configuring Open Directory see the *Configuring Xgrid Service* section of Apple's [*Podcast Producer Administration*](http://images.apple.com/server/macosx/docs/Podcast_Producer_Admin_v10.5.pdf) guide.  This guide has directions for setting up an Xgrid Controller and an Xgrid Agent on the same machine.
+
+A more recommended setup is to have Podcast Producer, Open Directory, and the Xgrid Controller on one machine and Xgrid Agents on separate machines.  To use this architecture follow the directions in Podcast Producer Administration guide. After the last step:
+
+1. Return to the Xgrid Service configuration in Server Admin.
+2. Select "Settings" from the list of section in the top bar
+3. Select the "Agent" tab
+4. Uncheck the "Enable Agent Service" option
+
+Setting up Agent computers will be covered in Section 3 of this document.
+
+
+### Configuring Podcast Producer
+### Initializing the Workflows
 
 Podcast Producer Recording Machine Setup
 ----------------------------------------
