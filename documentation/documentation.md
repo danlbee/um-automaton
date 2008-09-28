@@ -12,9 +12,11 @@ Automaton
   4. Configuring Podcast Producer
   5. Initializing the Workflows
 
-3. Podcast Producer Recording Machine Setup
+3. Xgrid Agent Setup
 
-4. Using the Workflow Tools
+4. Podcast Producer Recording Machine Setup
+
+5. Using the Workflow Tools
   1. Generating a new course
   1. Creating a Course in iTunesU
   1. Getting the Workflows on your development Machine
@@ -54,6 +56,7 @@ If forward DNS is configured properly you should see the IP address of this mach
 Running `host` again with the IP address should return a domain name pointer if *reverse* DNS is correctly configured.
 
 `host 166.159.211.141`
+
 `166.159.211.141.in-addr.arpa domain name pointer fellini.dent.umich.edu.`
 
 If you do not receive a response like this, reverse DNS is not correctly configured and Podcast Producer will not function properly.
@@ -122,14 +125,18 @@ Podcast Producer ships with a set of default workflows. We will overwrite these 
 
 Your custom workflows are now installed and will be recognized by Podcast Producer
 
+Xgrid Agent Setup
+---------------------------
 
 Podcast Producer Recording Machine Setup
 ----------------------------------------
+For a recording machine to capture new recordings and upload them to your Podcast Producer Machine. On a recording machine, open the *Podcast Capture* application in *Applications/Podcast Capture*. 
+![Podcast Producer Login](images/Podcast Producer Login.png)
 
 Using the Workflow Tools
 ---------------------------
 ### Generating a new course
-### Creating a Course in iTunesU
+### Creating a Course in iTunes U
 ### Getting the Workflows on your development Machine
 ### Generating a new Course Workflow
 ### Adding the Workflow to the Repository
